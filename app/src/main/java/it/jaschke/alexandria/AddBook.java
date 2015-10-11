@@ -25,6 +25,8 @@ import it.jaschke.alexandria.services.DownloadImage;
 
 public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "INTENT_TO_SCAN_ACTIVITY";
+    private static final int RC_BARCODE_CAPTURE = 9001;
+
     private EditText ean;
     private final int LOADER_ID = 1;
     private View rootView;
@@ -96,7 +98,14 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
                 //when you're done, remove the toast below.
                 Context context = getActivity();
 
+                if (v.getId() == R.id.scan_button) {
+                    // launch barcode activity.
+                    Intent intent = new Intent(context, BarcodeCaptureActivity.class);
+                    intent.putExtra(BarcodeCaptureActivity.AutoFocus, true);
+                    intent.putExtra(BarcodeCaptureActivity.UseFlash, false);
 
+                    startActivityForResult(intent, RC_BARCODE_CAPTURE);
+                }
             }
         });
 
