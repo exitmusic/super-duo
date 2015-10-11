@@ -22,13 +22,7 @@ import android.graphics.RectF;
 
 import com.google.android.gms.vision.barcode.Barcode;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
-
-import com.google.android.gms.samples.vision.barcodereader.ui.camera.GraphicOverlay;
-import com.google.android.gms.vision.barcode.Barcode;
+import it.jaschke.alexandria.CameraPreview.GraphicOverlay;
 
 /**
  * Graphic instance for rendering barcode position, size, and ID within an associated graphic

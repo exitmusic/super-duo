@@ -15,12 +15,11 @@
  */
 package it.jaschke.alexandria.barcode;
 
-import com.google.android.gms.samples.vision.barcodereader.ui.camera.GraphicOverlay;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.barcode.Barcode;
 
-import it.jaschke.alexandria.barcode.BarcodeGraphic;
+import it.jaschke.alexandria.CameraPreview.GraphicOverlay;
 
 /**
  * Generic tracker which is used for tracking or reading a barcode (and can really be used for

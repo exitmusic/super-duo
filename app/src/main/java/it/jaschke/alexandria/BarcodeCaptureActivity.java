@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package it.jaschke.alexandria.barcode;
+package it.jaschke.alexandria;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -51,7 +51,8 @@ import java.io.IOException;
 import it.jaschke.alexandria.CameraPreview.CameraSource;
 import it.jaschke.alexandria.CameraPreview.CameraSourcePreview;
 import it.jaschke.alexandria.CameraPreview.GraphicOverlay;
-import it.jaschke.alexandria.R;
+import it.jaschke.alexandria.barcode.BarcodeGraphic;
+import it.jaschke.alexandria.barcode.BarcodeTrackerFactory;
 
 /**
  * Activity for the multi-tracker app.  This app detects barcodes and displays the value with the
