@@ -1,7 +1,9 @@
 .gradle
 /local.properties
-/.idea/workspace.xml
+/alexandria/.idea/workspace.xml
+/football-scores/.idea/workspace.xml
 /.idea
 .DS_Store
-/build
+/alexandria/build
+/football-scores/build
 *.iml
