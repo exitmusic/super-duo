@@ -2,7 +2,8 @@
 /local.properties
 /alexandria/.idea/workspace.xml
 /football-scores/.idea/workspace.xml
-/.idea
+/alexandria/.idea
+/football-scores/.idea
 .DS_Store
 /alexandria/build
 /football-scores/build
