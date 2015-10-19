@@ -72,16 +72,16 @@ public class ScoresWidgetProvider extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), layoutId);
 
             // Add the data to the RemoteViews
-            views.setImageViewResource(R.id.home_crest, weatherArtResourceId);
-            views.setImageViewResource(R.id.away_crest, weatherArtResourceId);
+            //views.setImageViewResource(R.id.home_crest, weatherArtResourceId);
+            //views.setImageViewResource(R.id.away_crest, weatherArtResourceId);
             // Content Descriptions for RemoteViews were only added in ICS MR1
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                 setRemoteContentDescription(views, description);
             }
             views.setTextViewText(R.id.home_name, homeTeam);
             views.setTextViewText(R.id.away_name, awayTeam);
-            views.setTextViewText(R.id.score_textview, homeGoals + " - " + awayGoals);
-            views.setTextViewText(R.id.data_textview, formattedMaxTemperature);
+            views.setTextViewText(R.id.score_textview, "VS");
+            views.setTextViewText(R.id.data_textview, gameTime);
 
             // Create an Intent to launch MainActivity
             Intent launchIntent = new Intent(context, MainActivity.class);
