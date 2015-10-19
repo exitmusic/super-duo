@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import barqsoft.footballscores.DatabaseContract;
@@ -20,6 +21,8 @@ import barqsoft.footballscores.R;
  * Created by kchang on 10/13/15.
  */
 public class ScoresWidgetProvider extends AppWidgetProvider {
+
+    private static final String LOG_TAG = ScoresWidgetProvider.class.getSimpleName();
 
     private static final String[] GAME_COLUMNS = {
             DatabaseContract.scores_table.HOME_COL,
@@ -36,11 +39,11 @@ public class ScoresWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        
+
         // Get today's first game from content provider
-        Uri todaysFirstGameUri = DatabaseContract.scores_table.buildScoreWithDate();
-        Cursor data = context.getContentResolver().query(todaysFirstGameUri, GAME_COLUMNS, null, null,
-                DatabaseContract.scores_table.MATCH_DAY + " ASC");
+        Uri todaysFirstGameUri = DatabaseContract.BASE_CONTENT_URI;
+        Cursor data = context.getContentResolver().query(todaysFirstGameUri, GAME_COLUMNS, null, null, null);
+        Log.v(LOG_TAG, "ScoresWidgetProvider.onUpdate" + data.toString());
 
         if (data == null) {
             return;
@@ -75,9 +78,9 @@ public class ScoresWidgetProvider extends AppWidgetProvider {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                 setRemoteContentDescription(views, description);
             }
-            views.setTextViewText(R.id.home_name, formattedMaxTemperature);
-            views.setTextViewText(R.id.away_name, formattedMaxTemperature);
-            views.setTextViewText(R.id.score_textview, formattedMaxTemperature);
+            views.setTextViewText(R.id.home_name, homeTeam);
+            views.setTextViewText(R.id.away_name, awayTeam);
+            views.setTextViewText(R.id.score_textview, homeGoals + " - " + awayGoals);
             views.setTextViewText(R.id.data_textview, formattedMaxTemperature);
 
             // Create an Intent to launch MainActivity
