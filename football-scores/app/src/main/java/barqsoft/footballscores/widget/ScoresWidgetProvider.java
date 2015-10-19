@@ -6,9 +6,13 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 
+import barqsoft.footballscores.DatabaseContract;
 import barqsoft.footballscores.MainActivity;
 import barqsoft.footballscores.R;
 
@@ -16,7 +20,44 @@ import barqsoft.footballscores.R;
  * Created by kchang on 10/13/15.
  */
 public class ScoresWidgetProvider extends AppWidgetProvider {
+
+    private static final String[] GAME_COLUMNS = {
+            DatabaseContract.scores_table.HOME_COL,
+            DatabaseContract.scores_table.HOME_GOALS_COL,
+            DatabaseContract.scores_table.AWAY_COL,
+            DatabaseContract.scores_table.AWAY_GOALS_COL,
+            DatabaseContract.scores_table.TIME_COL
+    };
+    private static final int INDEX_HOME_COL = 0;
+    private static final int INDEX_HOME_GOALS_COL = 1;
+    private static final int INDEX_AWAY_COL = 2;
+    private static final int INDEX_AWAY_GOALS_COL = 3;
+    private static final int INDEX_TIME_COL = 4;
+
+    @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        
+        // Get today's first game from content provider
+        Uri todaysFirstGameUri = DatabaseContract.scores_table.buildScoreWithDate();
+        Cursor data = context.getContentResolver().query(todaysFirstGameUri, GAME_COLUMNS, null, null,
+                DatabaseContract.scores_table.MATCH_DAY + " ASC");
+
+        if (data == null) {
+            return;
+        }
+        if (!data.moveToFirst()) {
+            data.close();
+            return;
+        }
+
+        // Extract game data from cursor
+        String homeTeam = data.getString(INDEX_HOME_COL);
+        String homeGoals = data.getString(INDEX_HOME_GOALS_COL);
+        String awayTeam = data.getString(INDEX_AWAY_COL);
+        String awayGoals = data.getString(INDEX_AWAY_GOALS_COL);
+        String gameTime = data.getString(INDEX_TIME_COL);
+        data.close();
+
         int weatherArtResourceId = R.drawable.abc_ic_clear_mtrl_alpha;
         String description = "Clear";
         double maxTemp = 24;
@@ -52,5 +93,19 @@ public class ScoresWidgetProvider extends AppWidgetProvider {
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
     private void setRemoteContentDescription(RemoteViews views, String description) {
         views.setContentDescription(R.id.home_crest, description);
+    }
+
+    @Override
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager,
+                                          int appWidgetId, Bundle newOptions) {
+
+        context.startService(new Intent(context, ScoresWidgetIntentService.class));
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
+        // Check for SyncAdapter update action?
     }
 }
