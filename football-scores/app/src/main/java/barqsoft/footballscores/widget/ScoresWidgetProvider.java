@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import barqsoft.footballscores.DatabaseContract;
@@ -43,7 +42,6 @@ public class ScoresWidgetProvider extends AppWidgetProvider {
         // Get today's first game from content provider
         Uri todaysFirstGameUri = DatabaseContract.BASE_CONTENT_URI;
         Cursor data = context.getContentResolver().query(todaysFirstGameUri, GAME_COLUMNS, null, null, null);
-        Log.v(LOG_TAG, "ScoresWidgetProvider.onUpdate" + data.toString());
 
         if (data == null) {
             return;

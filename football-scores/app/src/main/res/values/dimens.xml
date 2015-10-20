@@ -11,4 +11,6 @@
     <!-- Scores Widget -->
     <dimen name="widget_today_default_width">160dp</dimen>
     <dimen name="widget_today_default_height">40dp</dimen>
+    <dimen name="widget_team_names">12sp</dimen>
+    <dimen name="widget_score">20sp</dimen>
 </resources>
