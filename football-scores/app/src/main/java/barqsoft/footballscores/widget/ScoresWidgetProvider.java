@@ -60,16 +60,13 @@ public class ScoresWidgetProvider extends AppWidgetProvider {
 
         // Extract game data from cursor
         String homeTeam = data.getString(INDEX_HOME_COL);
-        String homeGoals = data.getString(INDEX_HOME_GOALS_COL);
         String awayTeam = data.getString(INDEX_AWAY_COL);
-        String awayGoals = data.getString(INDEX_AWAY_GOALS_COL);
         String gameTime = data.getString(INDEX_TIME_COL);
-        data.close();
 
-        int weatherArtResourceId = R.drawable.abc_ic_clear_mtrl_alpha;
-        String description = "Clear";
-        double maxTemp = 24;
-        String formattedMaxTemperature = "24";
+        // No goals yet for today's scheduled matches
+        //String homeGoals = data.getString(INDEX_HOME_GOALS_COL);
+        //String awayGoals = data.getString(INDEX_AWAY_GOALS_COL);
+        data.close();
 
         // Perform this loop procedure for each Today widget
         for (int appWidgetId : appWidgetIds) {
@@ -77,15 +74,14 @@ public class ScoresWidgetProvider extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), layoutId);
 
             // Add the data to the RemoteViews
-            //views.setImageViewResource(R.id.home_crest, weatherArtResourceId);
-            //views.setImageViewResource(R.id.away_crest, weatherArtResourceId);
+
             // Content Descriptions for RemoteViews were only added in ICS MR1
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-                setRemoteContentDescription(views, description);
+                setRemoteContentDescription(views, context.getString(R.string.title_widget_scores));
             }
             views.setTextViewText(R.id.home_name, homeTeam);
             views.setTextViewText(R.id.away_name, awayTeam);
-            views.setTextViewText(R.id.score_textview, "VS");
+            views.setTextViewText(R.id.score_textview, context.getString(R.string.versus));
             views.setTextViewText(R.id.data_textview, gameTime);
 
             // Create an Intent to launch MainActivity
