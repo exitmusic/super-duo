@@ -60,6 +60,7 @@
                     android:text="@string/no_match"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:textSize="@dimen/widget_data"
                     android:id="@+id/data_textview"/>
             </LinearLayout>
 
