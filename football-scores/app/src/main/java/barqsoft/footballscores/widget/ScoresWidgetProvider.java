@@ -12,6 +12,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import barqsoft.footballscores.DatabaseContract;
 import barqsoft.footballscores.MainActivity;
 import barqsoft.footballscores.R;
@@ -40,8 +43,12 @@ public class ScoresWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         // Get today's first game from content provider
-        Uri todaysFirstGameUri = DatabaseContract.BASE_CONTENT_URI;
-        Cursor data = context.getContentResolver().query(todaysFirstGameUri, GAME_COLUMNS, null, null, null);
+        String[] dateSelection = new String[1];
+        Date todaysDate = new Date(System.currentTimeMillis()+(86400000));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateSelection[0] = dateFormat.format(todaysDate);
+        Uri todaysFirstGameUri = DatabaseContract.scores_table.buildScoreWithDate();
+        Cursor data = context.getContentResolver().query(todaysFirstGameUri, GAME_COLUMNS, null, dateSelection, null);
 
         if (data == null) {
             return;
