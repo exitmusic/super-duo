@@ -32,8 +32,8 @@ public class scoresAdapter extends CursorAdapter
     }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent)
-    {
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+
         View mItem = LayoutInflater.from(context).inflate(R.layout.scores_list_item, parent, false);
         ViewHolder mHolder = new ViewHolder(mItem);
         mItem.setTag(mHolder);
@@ -42,8 +42,8 @@ public class scoresAdapter extends CursorAdapter
     }
 
     @Override
-    public void bindView(View view, final Context context, Cursor cursor)
-    {
+    public void bindView(View view, final Context context, Cursor cursor) {
+
         final ViewHolder mHolder = (ViewHolder) view.getTag();
         mHolder.home_name.setText(cursor.getString(COL_HOME));
         mHolder.away_name.setText(cursor.getString(COL_AWAY));
@@ -61,8 +61,8 @@ public class scoresAdapter extends CursorAdapter
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = vi.inflate(R.layout.detail_fragment, null);
         ViewGroup container = (ViewGroup) view.findViewById(R.id.details_fragment_container);
-        if(mHolder.match_id == detail_match_id)
-        {
+
+        if (mHolder.match_id == detail_match_id) {
             //Log.v(FetchScoreTask.LOG_TAG,"will insert extraView");
 
             container.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
@@ -70,7 +70,7 @@ public class scoresAdapter extends CursorAdapter
 
             TextView match_day = (TextView) v.findViewById(R.id.matchday_textview);
             match_day.setText(Utilities.getMatchDay(cursor.getInt(COL_MATCHDAY),
-                    cursor.getInt(COL_LEAGUE)));
+                    cursor.getInt(COL_LEAGUE), context));
 
             TextView league = (TextView) v.findViewById(R.id.league_textview);
             league.setText(Utilities.getLeague(cursor.getInt(COL_LEAGUE), context));
@@ -86,9 +86,7 @@ public class scoresAdapter extends CursorAdapter
                     +mHolder.score.getText()+" "+mHolder.away_name.getText() + " "));
                 }
             });
-        }
-        else
-        {
+        } else {
             container.removeAllViews();
         }
 

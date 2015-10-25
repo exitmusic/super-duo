@@ -77,13 +77,9 @@ public class PagerFragment extends Fragment
                 return context.getString(R.string.today);
             } else if ( julianDay == currentJulianDay +1 ) {
                 return context.getString(R.string.tomorrow);
-            }
-             else if ( julianDay == currentJulianDay -1)
-            {
+            } else if ( julianDay == currentJulianDay -1) {
                 return context.getString(R.string.yesterday);
-            }
-            else
-            {
+            } else {
                 Time time = new Time();
                 time.setToNow();
                 // Otherwise, the format is just the day of the week (e.g "Wednesday".

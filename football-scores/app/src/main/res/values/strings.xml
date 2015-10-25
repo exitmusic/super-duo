@@ -17,7 +17,7 @@
     <string name="seriaa">Serie A</string>
     <string name="unknown_league">Not known League, please report</string>
 
-    <string name="matchday_text">Match day</string>
+    <string name="matchday_text">Match day : <xliff:g id="matchday">%1$s</xliff:g></string>
     <string name="group_stage_text">Group stages</string>
     <string name="first_knockout_round">First knockout round</string>
     <string name="quarter_final">Quarter Final</string>
